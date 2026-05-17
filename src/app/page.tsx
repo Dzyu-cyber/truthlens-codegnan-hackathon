@@ -1,4 +1,4 @@
-// app/page.tsx — High-tech fact-checking landing page with floating oval Navbar, orbital hero, About/Pricing, and OSINT terminal logs during loading and cryptographic file metadata extraction in report dashboard.
+// app/page.tsx — High-tech fact-checking landing page with floating oval Navbar, orbital hero, About/Pricing, OSINT terminal logs, cryptographic file metadata, and dynamic bot network/splicing forensics.
 
 'use client';
 
@@ -22,6 +22,7 @@ import TruthTimeline from '@/components/dashboard/TruthTimeline';
 import ManipulationRadar from '@/components/dashboard/ManipulationRadar';
 import ForensicPipelineLog from '@/components/dashboard/ForensicPipelineLog';
 import ForensicMetadata from '@/components/dashboard/ForensicMetadata';
+import ForensicVisualizer from '@/components/dashboard/ForensicVisualizer';
 
 export default function DashboardPage() {
   const { analysis, isLoading, error, analyze, reset } = useAnalysis();
@@ -271,6 +272,9 @@ export default function DashboardPage() {
                 <ManipulationRadar tactics={analysis.biasAnalysis?.psychologicalTactics} />
               </div>
             </div>
+
+            {/* Futuristic Forensic Visualizer (Splicing & Bots) */}
+            <ForensicVisualizer />
 
             {/* Evidence Breakdown */}
             {analysis.evidenceStructure && (
