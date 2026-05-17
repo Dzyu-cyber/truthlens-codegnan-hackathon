@@ -1,4 +1,4 @@
-// app/page.tsx — High-tech fact-checking landing page with floating oval Navbar, orbital hero, About/Pricing sections and professional forensics analyst report dashboard.
+// app/page.tsx — High-tech fact-checking landing page with floating oval Navbar, orbital hero, About/Pricing, and OSINT terminal logs during loading and cryptographic file metadata extraction in report dashboard.
 
 'use client';
 
@@ -20,6 +20,8 @@ import PriyaPanel from '@/components/journalist/PriyaPanel';
 import RealityMetrics from '@/components/dashboard/RealityMetrics';
 import TruthTimeline from '@/components/dashboard/TruthTimeline';
 import ManipulationRadar from '@/components/dashboard/ManipulationRadar';
+import ForensicPipelineLog from '@/components/dashboard/ForensicPipelineLog';
+import ForensicMetadata from '@/components/dashboard/ForensicMetadata';
 
 export default function DashboardPage() {
   const { analysis, isLoading, error, analyze, reset } = useAnalysis();
@@ -112,110 +114,130 @@ export default function DashboardPage() {
           <div className="w-full">
             {/* Hero / Verification Intake Section */}
             <section id="verify" className="max-w-5xl mx-auto px-4 pt-8 pb-16">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-12">
-                
-                {/* Left Column: Copywriting */}
-                <div className="lg:col-span-7 text-left space-y-6">
+              {isLoading ? (
+                /* Dynamic Cyberpunk Terminal Loader Log Screen */
+                <div className="space-y-6 text-center pt-8">
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-container/20 bg-primary-container/5 text-primary-container text-[10px] font-bold tracking-widest uppercase backdrop-blur-md"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse" />
-                    Cognitive Forensic OSINT // V2.5
-                  </motion.div>
-                  
-                  <div className="space-y-2">
-                    <h1 className="text-[42px] sm:text-[60px] leading-[1.05] font-black text-on-surface font-heading tracking-tight">
-                      Verify Reality. <br />
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-white to-primary-container drop-shadow-[0_0_15px_rgba(0,255,136,0.1)]">
-                        Expose Splicing.
-                      </span>
-                    </h1>
-                    <div className="w-20 h-1 bg-gradient-to-r from-primary-container to-transparent rounded-full" />
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
+                    className="w-16 h-16 border-t-2 border-primary-container border-r-2 border-transparent rounded-full mx-auto"
+                  />
+                  <div className="space-y-1">
+                    <h2 className="text-[20px] font-black text-on-surface font-heading tracking-tight uppercase">
+                      Running OSINT Forensics Protocol
+                    </h2>
+                    <p className="text-[12px] text-on-surface-variant/80 font-mono tracking-wider">
+                      Orchestrating computational pipelines in parallel...
+                    </p>
                   </div>
-
-                  <p className="text-[14px] md:text-[16px] leading-relaxed text-on-surface-variant max-w-lg font-light pl-4 border-l border-outline-variant/30">
-                    TruthLens acts as an autonomous digital forensics engine. Ingest claims, analyze deepfakes, inspect metadata, and extract contextual truth metrics instantly.
-                  </p>
-
-                  {/* Impact Stats */}
-                  <div className="flex items-center gap-12 pt-4">
-                    {[
-                      { label: 'Verifications', value: '140K+' },
-                      { label: 'Deepfake Accuracy', value: '99.4%' },
-                      { label: 'Analysis Time', value: '< 10s' }
-                    ].map((stat, idx) => (
-                      <div key={idx} className="group cursor-default">
-                        <div className="text-[24px] sm:text-[30px] font-black text-on-surface group-hover:text-primary-container transition-colors tracking-tight">
-                          {stat.value}
-                        </div>
-                        <div className="text-[9px] uppercase tracking-[0.15em] text-on-surface-variant font-bold mt-0.5">
-                          {stat.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <ForensicPipelineLog />
                 </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-12">
+                    {/* Left Column: Copywriting */}
+                    <div className="lg:col-span-7 text-left space-y-6">
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-container/20 bg-primary-container/5 text-primary-container text-[10px] font-bold tracking-widest uppercase backdrop-blur-md"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse" />
+                        Cognitive Forensic OSINT // V2.5
+                      </motion.div>
+                      
+                      <div className="space-y-2">
+                        <h1 className="text-[42px] sm:text-[60px] leading-[1.05] font-black text-on-surface font-heading tracking-tight">
+                          Verify Reality. <br />
+                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-white to-primary-container drop-shadow-[0_0_15px_rgba(0,255,136,0.1)]">
+                            Expose Splicing.
+                          </span>
+                        </h1>
+                        <div className="w-20 h-1 bg-gradient-to-r from-primary-container to-transparent rounded-full" />
+                      </div>
 
-                {/* Right Column: Dynamic Spinning Holographic Mascot Orbit */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="lg:col-span-5 flex items-center justify-center relative h-64 lg:h-80"
-                >
-                  <div className="absolute inset-0 bg-primary-container/20 rounded-full blur-[80px] animate-pulse" />
-                  <div className="absolute inset-0 bg-surface-container-high/30 rounded-full blur-[40px] animate-pulse" style={{ animationDelay: '1.5s' }} />
-                  
-                  {/* Floating Central Core (The Lens Radar) */}
-                  <motion.div
-                    animate={{
-                      y: [0, -12, 0],
-                      rotate: [0, 2, 0, -2, 0]
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: 'easeInOut'
-                    }}
-                    className="relative w-44 h-44 flex items-center justify-center"
-                  >
-                    {/* Ring 1 */}
-                    <div className="absolute inset-0 border border-primary-container/30 rounded-full animate-[spin_15s_linear_infinite]" />
-                    {/* Ring 2 */}
-                    <div className="absolute inset-4 border border-outline-variant/40 rounded-full animate-[spin_20s_linear_infinite]" style={{ animationDirection: 'reverse' }} />
-                    {/* Ring 3 */}
-                    <div className="absolute inset-8 border border-primary-container/10 rounded-full animate-[spin_30s_linear_infinite]" />
-                    
-                    {/* Inner core radar sweep */}
-                    <div className="absolute inset-10 rounded-full border border-primary-container/40 overflow-hidden">
-                      <div className="w-full h-full bg-gradient-to-tr from-primary-container/10 to-transparent animate-pulse" />
-                    </div>
-                    
-                    {/* Central Glowing Shield Icon */}
-                    <div className="relative z-10 w-16 h-16 rounded-full bg-surface-container-highest border border-primary-container/50 flex items-center justify-center shadow-[0_0_30px_rgba(0,255,136,0.3)]">
-                      <span className="material-symbols-outlined text-[36px] text-primary-container animate-pulse">fingerprint</span>
+                      <p className="text-[14px] md:text-[16px] leading-relaxed text-on-surface-variant max-w-lg font-light pl-4 border-l border-outline-variant/30">
+                        TruthLens acts as an autonomous digital forensics engine. Ingest claims, analyze deepfakes, inspect metadata, and extract contextual truth metrics instantly.
+                      </p>
+
+                      {/* Impact Stats */}
+                      <div className="flex items-center gap-12 pt-4">
+                        {[
+                          { label: 'Verifications', value: '140K+' },
+                          { label: 'Deepfake Accuracy', value: '99.4%' },
+                          { label: 'Analysis Time', value: '< 10s' }
+                        ].map((stat, idx) => (
+                          <div key={idx} className="group cursor-default">
+                            <div className="text-[24px] sm:text-[30px] font-black text-on-surface group-hover:text-primary-container transition-colors tracking-tight">
+                              {stat.value}
+                            </div>
+                            <div className="text-[9px] uppercase tracking-[0.15em] text-on-surface-variant font-bold mt-0.5">
+                              {stat.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Nodes on rings */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,255,136,0.8)]" />
-                    <div className="absolute bottom-4 left-4 w-1.5 h-1.5 rounded-full bg-primary-container/60 shadow-[0_0_6px_rgba(0,255,136,0.6)]" />
-                    <div className="absolute right-4 top-10 w-2 h-2 rounded-full bg-[#00ff88] shadow-[0_0_8px_rgba(0,255,136,0.8)]" />
-                    
-                    {/* Laser scanning beam */}
+                    {/* Right Column: Dynamic Spinning Holographic Mascot Orbit */}
                     <motion.div
-                      animate={{ top: ['5%', '95%', '5%'] }}
-                      transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-                      className="absolute left-1/2 -translate-x-1/2 w-[115%] h-[1.5px] bg-gradient-to-r from-transparent via-primary-container to-transparent z-20 shadow-[0_0_10px_rgba(0,255,136,0.6)]"
-                    />
-                  </motion.div>
-                </motion.div>
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                      className="lg:col-span-5 flex items-center justify-center relative h-64 lg:h-80"
+                    >
+                      <div className="absolute inset-0 bg-primary-container/20 rounded-full blur-[80px] animate-pulse" />
+                      <div className="absolute inset-0 bg-surface-container-high/30 rounded-full blur-[40px] animate-pulse" style={{ animationDelay: '1.5s' }} />
+                      
+                      {/* Floating Central Core (The Lens Radar) */}
+                      <motion.div
+                        animate={{
+                          y: [0, -12, 0],
+                          rotate: [0, 2, 0, -2, 0]
+                        }}
+                        transition={{
+                          duration: 5,
+                          repeat: Infinity,
+                          ease: 'easeInOut'
+                        }}
+                        className="relative w-44 h-44 flex items-center justify-center"
+                      >
+                        {/* Ring 1 */}
+                        <div className="absolute inset-0 border border-primary-container/30 rounded-full animate-[spin_15s_linear_infinite]" />
+                        {/* Ring 2 */}
+                        <div className="absolute inset-4 border border-outline-variant/40 rounded-full animate-[spin_20s_linear_infinite]" style={{ animationDirection: 'reverse' }} />
+                        {/* Ring 3 */}
+                        <div className="absolute inset-8 border border-primary-container/10 rounded-full animate-[spin_30s_linear_infinite]" />
+                        
+                        {/* Inner core radar sweep */}
+                        <div className="absolute inset-10 rounded-full border border-primary-container/40 overflow-hidden">
+                          <div className="w-full h-full bg-gradient-to-tr from-primary-container/10 to-transparent animate-pulse" />
+                        </div>
+                        
+                        {/* Central Glowing Shield Icon */}
+                        <div className="relative z-10 w-16 h-16 rounded-full bg-surface-container-highest border border-primary-container/50 flex items-center justify-center shadow-[0_0_30px_rgba(0,255,136,0.3)]">
+                          <span className="material-symbols-outlined text-[36px] text-primary-container animate-pulse">fingerprint</span>
+                        </div>
 
-              </div>
+                        {/* Nodes on rings */}
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,255,136,0.8)]" />
+                        <div className="absolute bottom-4 left-4 w-1.5 h-1.5 rounded-full bg-primary-container/60 shadow-[0_0_6px_rgba(0,255,136,0.6)]" />
+                        <div className="absolute right-4 top-10 w-2 h-2 rounded-full bg-[#00ff88] shadow-[0_0_8px_rgba(0,255,136,0.8)]" />
+                        
+                        {/* Laser scanning beam */}
+                        <motion.div
+                          animate={{ top: ['5%', '95%', '5%'] }}
+                          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                          className="absolute left-1/2 -translate-x-1/2 w-[115%] h-[1.5px] bg-gradient-to-r from-transparent via-primary-container to-transparent z-20 shadow-[0_0_10px_rgba(0,255,136,0.6)]"
+                        />
+                      </motion.div>
+                    </motion.div>
+                  </div>
 
-              {/* Ingestion Console Box */}
-              <UniversalInputBox onAnalyze={analyze} isLoading={isLoading} />
+                  {/* Ingestion Console Box */}
+                  <UniversalInputBox onAnalyze={analyze} isLoading={isLoading} />
+                </>
+              )}
             </section>
 
             {/* About Capabilities Grid Section */}
@@ -238,6 +260,13 @@ export default function DashboardPage() {
               <div className="space-y-6">
                 <CredibilityGauge score={analysis.overallCredibilityScore} />
                 <RealityMetrics scores={analysis.realityScores} />
+                
+                {/* Structural/Cryptographic Manifest inspector */}
+                <ForensicMetadata 
+                  claimText={analysis.originalClaim} 
+                  mediaType={analysis.sources[0]?.sourceUrl ? 'application/octet-stream' : 'text/plain'} 
+                />
+
                 <RedFlags flags={analysis.redFlags} bias={analysis.biasAnalysis} />
                 <ManipulationRadar tactics={analysis.biasAnalysis?.psychologicalTactics} />
               </div>

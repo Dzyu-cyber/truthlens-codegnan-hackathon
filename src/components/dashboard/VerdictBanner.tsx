@@ -34,6 +34,16 @@ export default function VerdictBanner({ analysis }: VerdictBannerProps) {
   const { translated: translatedClaim, isLoading: isLoadingClaim } = useTranslation(analysis.originalClaim);
   const { translated: translatedReason, isLoading: isLoadingReason } = useTranslation(analysis.verdictReason);
 
+  const downloadManifest = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(analysis, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `truthlens-manifest-${analysis.overallCredibilityScore}-${Date.now()}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -84,9 +94,12 @@ export default function VerdictBanner({ analysis }: VerdictBannerProps) {
                 <span className="material-symbols-outlined text-[18px]">share</span>
                 Share Report
               </button>
-              <button className="text-primary-fixed text-[12px] leading-[16px] tracking-[0.05em] font-semibold px-4 py-2 rounded flex items-center gap-2 hover:bg-primary-fixed/10 transition-colors">
+              <button 
+                onClick={downloadManifest}
+                className="text-primary-fixed text-[12px] leading-[16px] tracking-[0.05em] font-semibold px-4 py-2 rounded flex items-center gap-2 hover:bg-primary-fixed/10 transition-colors cursor-pointer"
+              >
                 <span className="material-symbols-outlined text-[18px]">download</span>
-                Download PDF
+                Download Manifest
               </button>
             </div>
           </div>
